@@ -24,7 +24,7 @@ export default function RootLayout({
   return (
     <html lang="pt-br">
       <body className={`${archivo.className} ${archivo.variable}`}>
-        <div className="main-layout p-14">
+        <div className="main-layout p-14 overflow-hidden">
           <div className="primary-gradient" />
           <div className="accent-gradient" />
           <div style={{ position: 'relative', zIndex: 12 }}>

@@ -16,13 +16,13 @@ const Intro: FunctionComponent<IntroProps> = ({
 }) => {
   return (
     <div className="flex items-center gap-4 pb-6 border-b border-primary-300">
-      <Image
+      {/* <Image
         src={imageSrc}
         alt=""
         width={imageWidth}
         height={imageHeight}
         className="border border-primary-300"
-      />
+      /> */}
       <div>{content}</div>
     </div>
   );

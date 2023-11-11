@@ -23,12 +23,13 @@ const rowVariants = cva('flex flex-wrap', {
     },
     gutter: {
       default: '-ml-4',
+      wide: '-ml-8',
       none: 'ml-0',
     },
-    defaultVariants: {
-      alignItems: 'start',
-      justifyContent: 'stretch',
-    },
+  },
+  defaultVariants: {
+    alignItems: 'start',
+    justifyContent: 'stretch',
   },
 });
 
@@ -47,7 +48,9 @@ const Row: FunctionComponent<RowProps> = ({
   return (
     <div className="mx-auto w-full h-full">
       <div
-        style={{ width: gutter === 'default' ? 'calc(100% + 16px)' : '100%' }}
+        style={{
+          width: determineGutter(gutter),
+        }}
         className={cn(
           rowVariants({ alignItems, justifyContent, gutter, className })
         )}
@@ -59,3 +62,15 @@ const Row: FunctionComponent<RowProps> = ({
 };
 
 export default Row;
+
+function determineGutter(gutter: string | null) {
+  if (gutter === 'wide') {
+    return 'calc(100% + 32px)';
+  }
+
+  if (gutter === 'default') {
+    return 'calc(100% + 16px)';
+  }
+
+  return '100%';
+}

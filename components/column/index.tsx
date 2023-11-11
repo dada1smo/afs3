@@ -81,13 +81,14 @@ const columnVariants = cva('h-full w-full block', {
     },
     gutter: {
       default: 'pl-4',
+      wide: 'pl-8',
       none: 'pl-0',
     },
-    defaultVariants: {
-      sm: '12',
-      xs: '12',
-      gutter: 'default',
-    },
+  },
+  defaultVariants: {
+    sm: 12,
+    xs: 12,
+    gutter: 'default',
   },
 });
 

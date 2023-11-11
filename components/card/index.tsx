@@ -7,14 +7,15 @@ import Link from 'next/link';
 const cardVariants = cva('pt-20 pb-6 px-6 flex flex-col gap-4', {
   variants: {
     color: {
-      light: 'bg-white border border-primary-300',
-      mid: 'bg-primary-300 border border-primary-300',
-      accent: 'bg-accent-300 border border-accent-300',
-      dark: 'bg-primary-800 text-white border border-primary-800',
+      primaryLight: 'bg-primary-50 border border-primary-300',
+      primaryMid: 'bg-primary-300 border border-primary-300',
+      accentLight: 'bg-accent-50 border border-accent-50',
+      accentMid: 'bg-accent-300 border border-accent-300',
+      primaryDark: 'bg-primary-800 text-white border border-primary-800',
     },
-    defaultVariants: {
-      color: 'light',
-    },
+  },
+  defaultVariants: {
+    color: 'primaryLight',
   },
 });
 
@@ -38,14 +39,18 @@ const Card: FunctionComponent<CardProps> = ({
         <Typography
           as="h3"
           variant="h3"
-          className={color !== 'dark' ? 'text-primary-900' : 'text-white'}
+          className={
+            color !== 'primaryDark' ? 'text-primary-900' : 'text-white'
+          }
         >
           {title}
         </Typography>
         <Typography
           as="p"
           variant="p"
-          className={color !== 'dark' ? 'text-primary-700' : 'text-primary-200'}
+          className={
+            color !== 'primaryDark' ? 'text-primary-700' : 'text-primary-200'
+          }
         >
           {subtitle}
         </Typography>
@@ -54,7 +59,7 @@ const Card: FunctionComponent<CardProps> = ({
             as="span"
             variant="link"
             className={
-              color !== 'dark' ? 'text-primary-600' : 'text-primary-200'
+              color !== 'primaryDark' ? 'text-primary-600' : 'text-primary-200'
             }
           >
             Ler mais
