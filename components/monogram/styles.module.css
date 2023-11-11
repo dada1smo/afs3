@@ -1,0 +1,8 @@
+.monogram path {
+  transition: 0.3s;
+  fill: var(--color-primary-400);
+}
+
+.monogram:hover path {
+  fill: var(--color-primary-900);
+}
