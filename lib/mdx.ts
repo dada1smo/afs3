@@ -1,8 +1,12 @@
 import fs from 'fs';
 import path from 'path';
 import { compileMDX } from 'next-mdx-remote/rsc';
-import { JSXElementConstructor, ReactElement } from 'react';
-import { serialize } from 'next-mdx-remote/serialize';
+import { customComponents, useMDXComponents } from '@/mdx-components';
+
+export interface PostSummaryProps {
+  id: string;
+  label: string;
+}
 
 export interface MetaProps {
   slug: string;
@@ -15,6 +19,33 @@ export interface MetaProps {
 export interface FrontMatterProps {
   meta: MetaProps;
   content: any;
+  summary: PostSummaryProps[];
+}
+
+export function formatSummary(heading: string) {
+  return heading
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .toLocaleLowerCase('en-US')
+    .split(' ')
+    .join('-');
+}
+
+function generateSummaries(markdownString: string) {
+  const h2Regex = /^##\s+(.+)/gm;
+  const matches = markdownString.match(h2Regex);
+
+  if (matches) {
+    const h2Headings = matches.map((match) => {
+      return {
+        id: formatSummary(match.replace(/^##\s+/, '')),
+        label: match.replace(/^##\s+/, ''),
+      };
+    });
+    return h2Headings;
+  }
+
+  return [];
 }
 
 const rootDirectory = path.join(process.cwd(), 'content');
@@ -28,11 +59,13 @@ export const getPostBySlug = async (slug: string) => {
   const { frontmatter, content } = await compileMDX({
     source: fileContent,
     options: { parseFrontmatter: true },
+    components: customComponents,
   });
 
   const head: FrontMatterProps = {
     meta: { ...frontmatter, slug: realSlug },
     content,
+    summary: generateSummaries(fileContent),
   };
 
   return head;

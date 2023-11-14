@@ -1,9 +1,9 @@
 import type { Metadata } from 'next';
-import { Archivo, Inter } from 'next/font/google';
+import { Archivo } from 'next/font/google';
 import './globals.css';
 import Nav from '@/components/nav';
-
-const inter = Inter({ subsets: ['latin'] });
+import ThemeProvider from '@/providers/theme.provider';
+import useTheme from '@/hooks/use-theme';
 
 const archivo = Archivo({
   subsets: ['latin'],
@@ -22,9 +22,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="pt-br">
-      <body className={`${archivo.className} ${archivo.variable}`}>
-        <div className="main-layout p-14 overflow-hidden">
+    <html lang="pt-br" className="scroll-smooth">
+      <ThemeProvider className={`${archivo.className} ${archivo.variable}`}>
+        <div className="main-layout md:p-14 p-4 overflow-clip">
           <div className="primary-gradient" />
           <div className="accent-gradient" />
           <div style={{ position: 'relative', zIndex: 12 }}>
@@ -32,7 +32,7 @@ export default function RootLayout({
             {children}
           </div>
         </div>
-      </body>
+      </ThemeProvider>
     </html>
   );
 }

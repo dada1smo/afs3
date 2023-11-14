@@ -2,8 +2,24 @@
 @tailwind components;
 @tailwind utilities;
 
+html {
+  background-color: var(--color-primary-50);
+}
+
+@media (prefers-color-scheme: dark) {
+  html {
+    background-color: var(--color-primary-900);
+  }
+}
+
 .main-layout {
   background-color: var(--color-primary-50);
+  position: relative;
+  min-height: 100vh;
+}
+
+.dark .main-layout {
+  background-color: var(--color-primary-900);
   position: relative;
   min-height: 100vh;
 }
@@ -20,6 +36,26 @@
   top: 0;
   left: 0;
   mix-blend-mode: multiply;
+  z-index: 2;
+  animation: NavyGradient 50s ease infinite;
+  background-size: 240% 240%;
+  background-repeat: no-repeat;
+  background-position: top left;
+  opacity: 1;
+}
+
+.dark .primary-gradient {
+  background-image: radial-gradient(
+    35.73% 32.78% at 50% 50%,
+    var(--color-primary-600) 0%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  mix-blend-mode: lighten;
   z-index: 2;
   animation: NavyGradient 50s ease infinite;
   background-size: 240% 240%;
@@ -48,7 +84,41 @@
   opacity: 1;
 }
 
+.dark .accent-gradient {
+  background-image: radial-gradient(
+    35.78% 32.82% at 50% 50%,
+    var(--color-accent-700) 0%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  mix-blend-mode: lighten;
+  z-index: 1;
+  animation: YellowGradient 50s ease infinite;
+  background-size: 360% 360%;
+  background-repeat: no-repeat;
+  background-position: center right;
+  opacity: 1;
+}
+
 .main-children {
   position: relative;
   z-index: 10;
+}
+
+.summary-item {
+  padding-left: 1em;
+}
+
+.summary-item::before {
+  content: '\0023';
+  text-decoration: none;
+  display: inline-block;
+  width: 1em;
+  margin-left: -1em;
+  font-weight: 600;
+  color: var(--color-accent-500);
 }
